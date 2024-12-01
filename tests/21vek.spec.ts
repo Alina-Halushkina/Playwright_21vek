@@ -51,3 +51,14 @@ test('Add to favorites', async ({page}) => {
     await page.getByRole('link', { name: 'Избранные товары' }).click();
     expect(page.locator("div[class*='name'] a")).toHaveText('Телевизор LG 43UR78009LL');
 });
+
+test('Add to compare', async ({page}) => {
+    await page.getByPlaceholder('Поиск товаров').click();
+    await page.getByPlaceholder('Поиск товаров').fill('Телевизор LG 43UR78009LL');
+    await page.keyboard.press('Enter');
+    await expect(page.locator("span[class$='name']")).toHaveText('Телевизор LG 43UR78009LL');
+    await page.getByRole('link', {name: 'Телевизор LG 43UR78009LL'}).click();
+    await page.getByRole('button', { name: 'Добавить к сравнению' }).click();
+    await page.getByRole('button', { name: 'Перейти в сравнение' }).click();
+    expect(page.getByTestId('compare-product')).toContainText('Телевизор LG 43UR78009LL');
+});
