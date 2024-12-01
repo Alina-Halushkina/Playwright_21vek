@@ -1,7 +1,6 @@
 import {HomePage} from "./home.page";
 
-class ItemPage extends HomePage {
-    page: any;
+export class ItemPage extends HomePage {
 
     get addToFavoriteButton() {
         return this.page.getByRole('button', {name: 'В избранное'})
@@ -26,5 +25,3 @@ class ItemPage extends HomePage {
         await this.goToComparisonButton.click();
     };
 }
-
-export default new ItemPage();

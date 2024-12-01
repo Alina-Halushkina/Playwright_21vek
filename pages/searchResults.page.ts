@@ -1,8 +1,6 @@
 import {HomePage} from "./home.page";
 
-class SearchResultsPage extends HomePage {
-    page: any;
-
+export class SearchResultsPage extends HomePage {
     get searchResultsItemName() {
         return this.page.locator("span[class$='name']")
     };
@@ -11,5 +9,3 @@ class SearchResultsPage extends HomePage {
         return this.page.getByRole('link', {name: 'Телевизор LG 43UR78009LL'})
     };
 }
-
-export default new SearchResultsPage();

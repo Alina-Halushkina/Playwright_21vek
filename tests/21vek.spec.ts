@@ -1,10 +1,29 @@
 import { test, expect } from '@playwright/test';
+import basePage from '../pages/base.page';
+import {HomePage} from "../pages/home.page";
+import {ComparePage} from "../pages/compare.page";
+import {CartPage} from "../pages/cart.page";
+import {FavoritesPage} from "../pages/favorites.page";
+import {ItemPage} from "../pages/item.page";
+import {SearchResultsPage} from "../pages/searchResults.page";
+
+
+let cartPage:CartPage;
+let homePage:HomePage;
+let comparePage:ComparePage;
+let favoritesPage:FavoritesPage;
+let itemPage:ItemPage;
+let searchResultsPage:SearchResultsPage;
 
 test.beforeEach(async ({page}) => {
-    await page.goto('https://www.21vek.by/');
-    page.on('dialog', dialog => dialog.accept());
-    await page.getByText('Принять').click();
-    await page.getByText('Нет, спасибо').click();
+    homePage = new HomePage(page);
+    cartPage = new CartPage(page);
+    comparePage = new ComparePage(page);
+    favoritesPage = new FavoritesPage(page);
+    itemPage = new ItemPage(page);
+    searchResultsPage = new SearchResultsPage(page);
+    await homePage.goto();
+    await homePage.acceptPopupWindows();
 });
 
 test('Search results', async ({ page }) => {

@@ -1,8 +1,6 @@
 import {HomePage} from "./home.page";
 
-class CartPage extends HomePage {
-    page: any;
-
+export class CartPage extends HomePage {
     get cartItems() {
         return this.page.locator("a[class*='title']")
     };
@@ -28,5 +26,3 @@ class CartPage extends HomePage {
         return this.page.getByTestId('empty-basket-screen')
     };
 }
-
-export default new CartPage();

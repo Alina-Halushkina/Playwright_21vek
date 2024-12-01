@@ -1,6 +1,13 @@
 import {BasePage} from "./base.page";
 
 export class HomePage extends BasePage {
+    async acceptPopupWindows() {
+        this.page.on('dialog', dialog => dialog.accept());
+        await this.page.getByText('Принять').click();
+        await this.page.getByText('Нет, спасибо').click();
+    }
+
+
     get searchInput() {
         return this.page.getByPlaceholder('Поиск товаров')
     };
@@ -41,5 +48,3 @@ export class HomePage extends BasePage {
         await this.favoritesButton.click();
     }
 }
-
-export default new HomePage();
