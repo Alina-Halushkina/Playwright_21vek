@@ -1,8 +1,8 @@
 import {BasePage} from "./base.page";
 
-class HomePage extends BasePage {
+export class HomePage extends BasePage {
     get searchInput() {
-        return await this.page.getByPlaceholder('Поиск товаров')
+        return this.page.getByPlaceholder('Поиск товаров')
     };
     async search(query: string) {
         await this.searchInput.fill(query);
@@ -11,7 +11,7 @@ class HomePage extends BasePage {
 
 
     get addToCartButton() {
-        return await this.page.getByRole('button', { name: 'В корзину' })
+        return this.page.getByRole('button', { name: 'В корзину' })
     };
     async addToCart() {
         await this.addToCartButton.click()
@@ -19,7 +19,7 @@ class HomePage extends BasePage {
 
 
     get cartIcon() {
-        return await this.page.getByRole('link', {name: 'Корзина'})
+        return this.page.getByRole('link', {name: 'Корзина'})
     };
     async openCart() {
         await this.cartIcon.click()
@@ -27,7 +27,7 @@ class HomePage extends BasePage {
 
 
     get accountIcon() {
-        return await this.page.getByRole('button', { name: 'Аккаунт' })
+        return this.page.getByRole('button', { name: 'Аккаунт' })
     };
     async openAccount() {
         await this.accountIcon.click()
@@ -35,7 +35,7 @@ class HomePage extends BasePage {
 
 
     get favoritesButton() {
-        return await this.page.getByRole('link', { name: 'Избранные товары' });
+        return this.page.getByRole('link', { name: 'Избранные товары' });
     }
     async openFavorites() {
         await this.favoritesButton.click();

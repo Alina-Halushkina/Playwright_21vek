@@ -1,7 +1,7 @@
 import {expect, type Locator, type Page} from "@playwright/test";
 
 export abstract class BasePage {
-    private page: Page;
+    readonly page: Page;
     constructor() {
     }
 
