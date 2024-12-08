@@ -2,7 +2,7 @@ import {HomePage} from "./home.page";
 
 export class SearchResultsPage extends HomePage {
     get searchResultsItemName() {
-        return this.page.locator("span[class$='name']")
+        return this.page.locator('.result__name').first()
     };
 
     get searchResultsItemLink() {

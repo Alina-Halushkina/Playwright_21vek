@@ -40,11 +40,14 @@ export class HomePage extends BasePage {
         await this.accountIcon.click()
     };
 
-
     get favoritesButton() {
         return this.page.getByRole('link', { name: 'Избранные товары' });
     }
     async openFavorites() {
         await this.favoritesButton.click();
+    }
+
+    async randomItemName() {
+        return await this.page.getByTestId('card-info').first().innerText()
     }
 }

@@ -14,6 +14,7 @@ let comparePage:ComparePage;
 let favoritesPage:FavoritesPage;
 let itemPage:ItemPage;
 let searchResultsPage:SearchResultsPage;
+let itemName: string;
 
 test.beforeEach(async ({page}) => {
     homePage = new HomePage(page);
@@ -24,47 +25,48 @@ test.beforeEach(async ({page}) => {
     searchResultsPage = new SearchResultsPage(page);
     await homePage.goto();
     await homePage.acceptPopupWindows();
+    itemName = await homePage.randomItemName();
 });
 
 test('Search results', async ({ page }) => {
-    await homePage.search('Телевизор LG 43UR78009LL');
-    await expect(searchResultsPage.searchResultsItemName).toHaveText('Телевизор LG 43UR78009LL');
+    await homePage.search(itemName);
+    await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
 });
 
 test('Add to cart', async ({page}) => {
-    await homePage.search('Телевизор LG 43UR78009LL');
-    await expect(searchResultsPage.searchResultsItemName).toHaveText('Телевизор LG 43UR78009LL');
+    await homePage.search(itemName);
+    await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
     await homePage.addToCart();
     await homePage.openCart();
-    await expect(cartPage.cartItems).toHaveText('Телевизор LG 43UR78009LL');
+    await expect(cartPage.cartItems).toHaveText(itemName);
 });
 
 test('Remove from cart', async ({page}) => {
-    await homePage.search('Телевизор LG 43UR78009LL');
-    await expect(searchResultsPage.searchResultsItemName).toHaveText('Телевизор LG 43UR78009LL');
+    await homePage.search(itemName);
+    await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
     await homePage.addToCart();
     await homePage.openCart();
-    await expect(cartPage.cartItems).toHaveText('Телевизор LG 43UR78009LL');
+    await expect(cartPage.cartItems).toHaveText(itemName);
     await cartPage.removeItem();
     await cartPage.confirmRemove();
     expect(cartPage.emptyCartMessage.isVisible()).toBeTruthy();
 });
 
 test('Add to favorites', async ({page}) => {
-    await homePage.search('Телевизор LG 43UR78009LL');
-    await expect(searchResultsPage.searchResultsItemName).toHaveText('Телевизор LG 43UR78009LL');
+    await homePage.search(itemName);
+    await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
     await searchResultsPage.searchResultsItemLink.click();
     await itemPage.addToFavorite();
     await homePage.openAccount();
     await homePage.openFavorites();
-    expect(favoritesPage.favoritesItems).toHaveText('Телевизор LG 43UR78009LL');
+    expect(favoritesPage.favoritesItems).toHaveText(itemName);
 });
 
 test('Add to compare', async ({page}) => {
-    await homePage.search('Телевизор LG 43UR78009LL');
-    await expect(searchResultsPage.searchResultsItemName).toHaveText('Телевизор LG 43UR78009LL');
+    await homePage.search(itemName);
+    await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
     await searchResultsPage.searchResultsItemLink.click();
     await itemPage.addToComparison();
     await itemPage.goToComparison();
-    expect(comparePage.compareItems).toContainText('Телевизор LG 43UR78009LL');
+    expect(comparePage.compareItems).toContainText(itemName);
 });
