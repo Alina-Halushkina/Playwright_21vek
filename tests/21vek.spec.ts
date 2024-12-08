@@ -55,17 +55,17 @@ test('Remove from cart', async ({page}) => {
 test('Add to favorites', async ({page}) => {
     await homePage.search(itemName);
     await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
-    await searchResultsPage.searchResultsItemLink.click();
+    await searchResultsPage.searchResultsItemLink(itemName);
     await itemPage.addToFavorite();
     await homePage.openAccount();
     await homePage.openFavorites();
-    expect(favoritesPage.favoritesItems).toHaveText(itemName);
+    await expect(favoritesPage.favoritesItems).toHaveText(itemName);
 });
 
 test('Add to compare', async ({page}) => {
     await homePage.search(itemName);
     await expect(searchResultsPage.searchResultsItemName).toHaveText(itemName);
-    await searchResultsPage.searchResultsItemLink.click();
+    await searchResultsPage.searchResultsItemLink(itemName);
     await itemPage.addToComparison();
     await itemPage.goToComparison();
     expect(comparePage.compareItems).toContainText(itemName);
